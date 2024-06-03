@@ -1,0 +1,52 @@
+#!/bin/bash
+# Premenne zloziek, s ktorymi program pracuje
+diskord=/home/andrej/Discord
+dwnld=/home/andrej/data/dwnld
+
+# Skript
+echo -e " "
+echo ">>> Tento skript sluzi na aktualizaciu aplikacie Discord"
+echo ">>> Nasli sa tieto dostupne verzie:"
+
+# Kontrola ci existuju discord archivy
+if ls $dwnld | grep discord > /dev/null 2>&1; then
+    ls $dwnld | grep discord
+else
+    echo ">>> CHYBA: Neboli najdene ziadne dostupne verzie. Koncim skript."
+    echo -e " "
+    exit 1
+fi
+echo -e " "
+read -p ">>> Ktoru verziu chces nainstalovat [vloz cely nazov suboru]: " file
+echo -e " "
+
+# Kontrola ci je zadany subor tar.gz archiv
+if [[ ! "$file" == *.tar.gz ]]; then
+  echo ">>> CHYBA: Zvoleny subor nie je Discord archiv. Koncim skript."
+  echo -e " "
+  exit 1
+fi
+
+#Pokracovanie skriptu
+echo ">>> Mazem aktualnu verziu"
+rm -Rv $diskord
+echo -e " "
+echo ">>> Rozbalujem zvolenu verziu"
+tar xvf $dwnld/$file -C ~/
+echo -e " "
+echo ">>> Hotovo!"
+
+#Akcia po uspesnej aktualizacii
+read -p ">>> Chces zmazat stiahnuty archiv? [A/n] " next
+if [[ "$next" == [Aa] ]]
+then
+  rm -Rv "$dwnld/$file"
+  echo "Archiv $file bol zmazany."
+  echo -e " "
+elif
+  [[ "$next" == [Nn] ]]
+then
+  echo ">>> Zvolil si 'Nie', subor zostal v zlozke '$dwnld'."
+  echo -e " "
+fi
+
