@@ -1,7 +1,7 @@
 #!/bin/bash
 # Premenne zloziek, s ktorymi program pracuje
-diskord=/home/andrej/Discord
-dwnld=/home/andrej/data/dwnld
+diskord=/home/<user>/<discord_folder>
+dwnld=/home/<user>/<dwnld_folder>
 
 # Skript
 echo -e " "
@@ -29,10 +29,10 @@ fi
 
 #Pokracovanie skriptu
 echo ">>> Mazem aktualnu verziu"
-rm -Rv $diskord
+rm -R $diskord
 echo -e " "
 echo ">>> Rozbalujem zvolenu verziu"
-tar xvf $dwnld/$file -C ~/
+tar xf $dwnld/$file -C ~/
 echo -e " "
 echo ">>> Hotovo!"
 
@@ -40,7 +40,7 @@ echo ">>> Hotovo!"
 read -p ">>> Chces zmazat stiahnuty archiv? [A/n] " next
 if [[ "$next" == [Aa] ]]
 then
-  rm -Rv "$dwnld/$file"
+  rm -R "$dwnld/$file"
   echo "Archiv $file bol zmazany."
   echo -e " "
 elif
@@ -49,4 +49,3 @@ then
   echo ">>> Zvolil si 'Nie', subor zostal v zlozke '$dwnld'."
   echo -e " "
 fi
-
